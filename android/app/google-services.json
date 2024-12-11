@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "299024678136",
+    "project_id": "face-scanner-2",
+    "storage_bucket": "face-scanner-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299024678136:android:8afe2598f79fda3e4c4f0d",
+        "android_client_info": {
+          "package_name": "com.facescanner.ai.beautyanalysis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6N5MGW0OQZ3sW8gTAcu0XoiRsTI1YAMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
