@@ -101,7 +101,7 @@ class CustomTheme {
       colorScheme: ColorScheme.light(
         primary: const Color(0xFFFF6F91), // Updated primary color
         secondary: const Color(0xFFFF8BA1), // Accent color
-        surface: const Color(0xFFFFAFC5), // Card color
+        surface: Colors.white, // Card color
         onPrimary: Color(0xFFFFFFFF), // Text color on primary
         onSecondary: Color(0xFFFFFFFF), // Text color on secondary
         onSurface: Color(0xFF212121), // Text color on surface
