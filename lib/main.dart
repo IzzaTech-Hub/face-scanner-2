@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     analytics.setAnalyticsCollectionEnabled(kReleaseMode);
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Face Scanner',
       themeMode: ThemeMode.light,
       darkTheme: CustomTheme.darkTheme,
       // darkTheme: CustomTheme.lightTheme,
