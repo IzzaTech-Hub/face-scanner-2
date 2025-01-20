@@ -67,7 +67,7 @@ class _ScannerWidgetState extends State<ScannerWidget>
                   children: [
                     DottedBorder(
                       borderType: BorderType.Circle,
-                      color: Colors.greenAccent,
+                      color: Colors.tealAccent,
                       strokeWidth: 2,
                       dashPattern: [6, 3],
                       child: Container(
@@ -90,10 +90,9 @@ class _ScannerWidgetState extends State<ScannerWidget>
                         height: SizeConfig.blockSizeVertical * 5,
                         decoration: BoxDecoration(
                           border: Border(
-                            top:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                            top: BorderSide(color: Colors.tealAccent, width: 4),
                             left:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                           ),
                         ),
                       ),
@@ -106,10 +105,9 @@ class _ScannerWidgetState extends State<ScannerWidget>
                         height: SizeConfig.blockSizeVertical * 5,
                         decoration: BoxDecoration(
                           border: Border(
-                            top:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                            top: BorderSide(color: Colors.tealAccent, width: 4),
                             right:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                           ),
                         ),
                       ),
@@ -123,9 +121,9 @@ class _ScannerWidgetState extends State<ScannerWidget>
                         decoration: BoxDecoration(
                           border: Border(
                             bottom:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                             left:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                           ),
                         ),
                       ),
@@ -139,9 +137,9 @@ class _ScannerWidgetState extends State<ScannerWidget>
                         decoration: BoxDecoration(
                           border: Border(
                             bottom:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                             right:
-                                BorderSide(color: Colors.greenAccent, width: 4),
+                                BorderSide(color: Colors.tealAccent, width: 4),
                           ),
                         ),
                       ),
@@ -155,7 +153,7 @@ class _ScannerWidgetState extends State<ScannerWidget>
                           child: Container(
                             width: 180,
                             height: 2,
-                            color: Colors.greenAccent,
+                            color: Colors.tealAccent,
                           ),
                         );
                       },
@@ -167,7 +165,7 @@ class _ScannerWidgetState extends State<ScannerWidget>
                 Text(
                   'SCANNING...'.tr,
                   style: TextStyle(
-                    color: Colors.greenAccent,
+                    color: Colors.tealAccent,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -178,7 +176,7 @@ class _ScannerWidgetState extends State<ScannerWidget>
                   width: 250,
                   height: 20,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.greenAccent),
+                    border: Border.all(color: Colors.tealAccent),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: AnimatedBuilder(
@@ -193,7 +191,7 @@ class _ScannerWidgetState extends State<ScannerWidget>
                           // If within 0, 1, or 2 steps of the animated position, highlight it
                           final isInWave = distanceFromWave < 2;
                           final color = isInWave
-                              ? Colors.greenAccent
+                              ? Colors.tealAccent
                               // .withOpacity(1 - (distanceFromWave / 3))
                               : Colors.black;
 

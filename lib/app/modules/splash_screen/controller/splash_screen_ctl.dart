@@ -14,7 +14,8 @@ class SplashController extends GetxController {
 
     // AppLovinProvider.instance.init();
 
-    Get.offNamed(Routes.HOMEVIEW);
+    // Get.offNamed(Routes.HOMEVIEW);
+    Get.offNamed(Routes.WORKINGDEMOVIEW);
 
     // prefs.then((SharedPreferences pref) {
     //   isFirstTime = pref.getBool('first_time') ?? true;

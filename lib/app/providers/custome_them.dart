@@ -4,8 +4,10 @@ class CustomTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       brightness: Brightness.dark,
+
       primaryColor: const Color(0xFFFF6F91), // Updated primary color
-      scaffoldBackgroundColor: const Color(0xFFFF6F91), // Background color
+      // scaffoldBackgroundColor: const Color(0xFFFF6F91), // Background color
+      scaffoldBackgroundColor: const Color(0xFFFFF6F9), // Background color
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFFFF6F91), // Updated app bar color
         elevation: 0,

@@ -15,24 +15,75 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Look like a Celebrity",
-          style: TextStyle(
-              fontSize: SizeConfig.blockSizeHorizontal * 5,
-              fontWeight: FontWeight.bold),
-        ),
-        leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Icon(Icons.arrow_back_ios_new_rounded)),
-        // actions: [Icon(Icons.question_mark_rounded)],
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Look like a Celebrity",
+      //     style: TextStyle(
+      //         fontSize: SizeConfig.blockSizeHorizontal * 5,
+      //         fontWeight: FontWeight.bold),
+      //   ),
+      //   leading: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Icon(Icons.arrow_back_ios_new_rounded)),
+      //   // actions: [Icon(Icons.question_mark_rounded)],
+      // ),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
+              SafeArea(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: SizeConfig.blockSizeHorizontal * 4,
+                        ),
+                        height: SizeConfig.blockSizeVertical * 8,
+                        width: SizeConfig.blockSizeHorizontal * 10,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE9A5B1),
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Color(0xFFDD87D9)),
+                        ),
+                        child: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.blockSizeHorizontal * 10,
+                          top: SizeConfig.blockSizeVertical * 1),
+                      height: SizeConfig.blockSizeVertical * 5,
+                      width: SizeConfig.blockSizeHorizontal * 55,
+                      decoration: BoxDecoration(
+                          color: Color(0xFFE9A5B1),
+                          border: Border.all(color: Color(0xFFDD87D9)),
+                          borderRadius: BorderRadius.circular(
+                              SizeConfig.blockSizeHorizontal * 6)),
+                      child: Center(
+                        child: Text(
+                          "Celebrity Look",
+                          style: TextStyle(
+                              fontSize: SizeConfig.blockSizeHorizontal * 6,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black
+                              // color: Color(0xFFDD87D9)
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -101,6 +152,14 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                           ),
                         ],
                         color: Colors.white,
+                        gradient: LinearGradient(
+                            colors: [
+                              Color(0xFFFFA9DE),
+                              Color(0xFFFFBFB3),
+                              Color(0xFFDD87D9)
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight),
                         borderRadius: BorderRadius.circular(
                             SizeConfig.blockSizeHorizontal * 6)),
                     child: Column(
@@ -111,7 +170,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                           borderType: BorderType.RRect,
                           strokeCap: StrokeCap.round,
                           dashPattern: [6, 1, 8, 11],
-                          color: Colors.grey,
+                          color: Colors.black,
                           child: Container(
                             height: SizeConfig.blockSizeVertical * 25,
                             width: SizeConfig.blockSizeHorizontal * 55,
@@ -142,6 +201,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                                             )
                                           : Image.asset(
                                               AppImages.user,
+
                                               // scale: 3.5,
                                             )),
                                 ),
@@ -153,15 +213,16 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                           "with",
                           style: TextStyle(
                               fontSize: SizeConfig.blockSizeHorizontal * 4,
-                              color: Colors.grey),
+                              color: Colors.black),
                         ),
                         Container(
                           height: SizeConfig.blockSizeVertical * 5,
                           width: SizeConfig.blockSizeHorizontal * 60,
                           decoration: BoxDecoration(
                               color: Colors.grey.shade100,
+                              border: Border.all(color: Color(0xFFDD87D9)),
                               borderRadius: BorderRadius.circular(
-                                  SizeConfig.blockSizeHorizontal * 4)),
+                                  SizeConfig.blockSizeHorizontal * 6)),
                           child: Center(
                             child: Obx(
                               () => DropdownButton<String>(
@@ -518,7 +579,7 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
     return Column(
       children: [
         Icon(icon,
-            color: Colors.green, size: SizeConfig.blockSizeHorizontal * 10),
+            color: Colors.pink, size: SizeConfig.blockSizeHorizontal * 10),
         verticalSpace(SizeConfig.blockSizeVertical * 1),
         Text(label,
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),

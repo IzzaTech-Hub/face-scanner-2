@@ -18,6 +18,7 @@ class BeautyScoreResult extends GetView<BeautyScoreCtl> {
           style: TextStyle(
               fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         ),
+        centerTitle: true,
         leading: GestureDetector(
             onTap: () {
               Get.back();

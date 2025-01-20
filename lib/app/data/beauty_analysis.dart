@@ -9,6 +9,8 @@ class BeautyAnalysis {
   final bool glass;
   final String faceQuality;
   final String face_description;
+  final String face_description_solution;
+  final String face_description_solution_question;
 
   BeautyAnalysis({
     required this.ethnicity,
@@ -19,6 +21,8 @@ class BeautyAnalysis {
     required this.age,
     required this.faceQuality,
     required this.face_description,
+    required this.face_description_solution,
+    required this.face_description_solution_question,
   });
 
   // Factory method to create a FaceBeautyAnalysis instance from JSON
@@ -35,6 +39,10 @@ class BeautyAnalysis {
       ethnicity: (json['ethnicity'] ?? '').toString(),
       glass: (json['glass'] ?? false),
       face_description: (json['face_description'] ?? '').toString(),
+      face_description_solution:
+          (json['face_description_solution'] ?? '').toString(),
+      face_description_solution_question:
+          (json['face_description_solution_question'] ?? '').toString(),
     );
   }
 
@@ -49,6 +57,8 @@ class BeautyAnalysis {
       'glass': glass,
       'face_quality': faceQuality,
       'face_description': face_description,
+      'face_description_solution': face_description_solution,
+      'face_description_solution_question': face_description_solution_question,
     };
   }
 }

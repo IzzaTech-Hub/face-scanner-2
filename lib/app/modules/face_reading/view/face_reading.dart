@@ -14,6 +14,59 @@ class FaceReading extends GetView<FaceReadingCtl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Choose Image',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                              onTap: () async {
+                                await controller.pickImage(ImageSource.camera);
+                                Get.back();
+
+                                Get.to(() => ScannerWidget());
+                              },
+                              child: _buildImageOption(
+                                  Icons.camera_alt, 'Camera')),
+                          GestureDetector(
+                              onTap: () async {
+                                await controller.pickImage(ImageSource.gallery);
+                                Get.back();
+
+                                Get.to(() => ScannerWidget());
+                              },
+                              child: _buildImageOption(Icons.image, 'Gallery')),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        backgroundColor: Colors.pink,
+        child: Icon(
+          Icons.add_photo_alternate_outlined,
+          color: Colors.white,
+        ),
+      ),
+
       bottomNavigationBar:
           Obx(() => controller.responseStatus.value == ResponseStatus.success
               ? BottomNavigationBar(
@@ -26,135 +79,270 @@ class FaceReading extends GetView<FaceReadingCtl> {
                     nav_bar(AppImages.nose, "Nose"),
                     nav_bar(AppImages.eyebrows, "EyeBrows"),
                   ],
-                  selectedItemColor: Colors.teal,
+                  selectedItemColor: Colors.pink,
                   unselectedItemColor: Colors.grey,
                 )
               : Container(
                   height: 0,
                 )),
-      appBar: AppBar(
-        title: Text(
-          "Face Reading",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Icon(Icons.arrow_back_ios_new_rounded)),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(
-              () => Stack(
-                children: [
-                  controller.selectedImage.value != null
-                      ? Container(
-                          width: double.infinity,
-                          height: 300,
-                          child: Image.file(
-                            controller.selectedImage.value!,
-                            fit: BoxFit.fill,
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Face Reading",
+      //     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      //   ),
+      //   leading: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Icon(Icons.arrow_back_ios_new_rounded)),
+      // ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: SizeConfig.blockSizeVertical * 38,
+                width: SizeConfig.screenWidth,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    Color(0xFFFFA9DE),
+                    Color(0xFFFFBFB3),
+                    Color(0xFFDD87D9)
+                  ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(
+                        SizeConfig.blockSizeHorizontal * 2,
+                      ),
+                      bottomLeft: Radius.circular(
+                        SizeConfig.blockSizeHorizontal * 2,
+                      )),
+                  border: Border.all(color: Color(0xFFDD87D9)),
+                ),
+                child: SafeArea(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            left: SizeConfig.blockSizeHorizontal * 4,
                           ),
-                        )
-                      : Container(
-                          width: double.infinity,
-                          height: 300,
-                          decoration:
-                              BoxDecoration(color: Colors.grey.shade200),
-                          child: Center(
-                            child: Text(
-                              "Add Image",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.grey),
-                            ),
+                          height: SizeConfig.blockSizeVertical * 8,
+                          width: SizeConfig.blockSizeHorizontal * 10,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFE9A5B1),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Color(0xFFDD87D9)),
+                          ),
+                          child: Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            color: Colors.black,
                           ),
                         ),
-                  Positioned(
-                    right: 16.0,
-                    bottom: 16.0,
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Choose Image',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () async {
-                                              await controller.pickImage(
-                                                  ImageSource.camera);
-                                              Get.back();
-
-                                              Get.to(() => ScannerWidget());
-                                            },
-                                            child: _buildImageOption(
-                                                Icons.camera_alt, 'Camera')),
-                                        GestureDetector(
-                                            onTap: () async {
-                                              await controller.pickImage(
-                                                  ImageSource.gallery);
-                                              Get.back();
-
-                                              Get.to(() => ScannerWidget());
-                                            },
-                                            child: _buildImageOption(
-                                                Icons.image, 'Gallery')),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      backgroundColor: Colors.teal,
-                      child: Icon(
-                        Icons.add_photo_alternate_outlined,
-                        color: Colors.white,
                       ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: SizeConfig.blockSizeHorizontal * 10,
+                            top: SizeConfig.blockSizeVertical * 1),
+                        height: SizeConfig.blockSizeVertical * 5,
+                        width: SizeConfig.blockSizeHorizontal * 55,
+                        decoration: BoxDecoration(
+                            color: Color(0xFFE9A5B1),
+                            border: Border.all(color: Color(0xFFDD87D9)),
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.blockSizeHorizontal * 6)),
+                        child: Center(
+                          child: Text(
+                            "Face Reading",
+                            style: TextStyle(
+                                fontSize: SizeConfig.blockSizeHorizontal * 6,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
+                                // color: Color(0xFFDD87D9)
+                                ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Obx(() => controller.selectedImage.value != null
+                  ? Positioned(
+                      top: SizeConfig.blockSizeVertical * 11,
+                      left: SizeConfig.blockSizeHorizontal * 25,
+                      child: Container(
+                        width: SizeConfig.blockSizeHorizontal * 50,
+                        height: SizeConfig.blockSizeVertical * 23,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 3),
+                        ),
+                        child: CircleAvatar(
+                          radius: SizeConfig.blockSizeHorizontal *
+                              25, // Half of container size
+                          backgroundColor: Colors.grey.shade200,
+                          backgroundImage:
+                              FileImage(controller.selectedImage.value!),
+                        ),
+                      ),
+                    )
+                  : Positioned(
+                      top: SizeConfig.blockSizeVertical * 11,
+                      left: SizeConfig.blockSizeHorizontal * 25,
+                      child: Container(
+                        width: SizeConfig.blockSizeHorizontal * 50,
+                        height: SizeConfig.blockSizeVertical * 23,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 3),
+                        ),
+                        child: CircleAvatar(
+                          radius: SizeConfig.blockSizeHorizontal * 25,
+                          backgroundColor: Colors.grey.shade200,
+                          child: Text(
+                            "Add Image",
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    )),
+            ],
+          ),
+          verticalSpace(SizeConfig.blockSizeVertical * 3),
+          Obx(() => controller.responseStatus.value == ResponseStatus.success
+              ? Container(
+                  height: 240,
+                  width: 350,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      controller.selectedFeature.value,
+                      style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                   ),
-                ],
-              ),
-            ),
-            verticalSpace(16),
-            Obx(() => controller.responseStatus.value == ResponseStatus.success
-                ? Container(
-                    height: 240,
-                    width: 350,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        controller.selectedFeature.value,
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                    ),
-                  )
-                : Container()),
-          ],
-        ),
+                )
+              : Container()),
+        ],
       ),
+      // SingleChildScrollView(
+      //   child: Column(
+      //     children: [
+      //       Obx(
+      //         () => Stack(
+      //           children: [
+      //             controller.selectedImage.value != null
+      //                 ? Container(
+      //                     width: double.infinity,
+      //                     height: 300,
+      //                     child: Image.file(
+      //                       controller.selectedImage.value!,
+      //                       fit: BoxFit.fill,
+      //                     ),
+      //                   )
+      //                 : Container(
+      //                     width: double.infinity,
+      //                     height: 300,
+      //                     decoration:
+      //                         BoxDecoration(color: Colors.grey.shade200),
+      //                     child: Center(
+      //                       child: Text(
+      //                         "Add Image",
+      //                         style:
+      //                             TextStyle(fontSize: 18, color: Colors.grey),
+      //                       ),
+      //                     ),
+      //                   ),
+      //             Positioned(
+      //               right: 16.0,
+      //               bottom: 16.0,
+      //               child: FloatingActionButton(
+      //                 onPressed: () {
+      //                   showDialog(
+      //                       context: context,
+      //                       builder: (BuildContext context) {
+      //                         return AlertDialog(
+      //                           shape: RoundedRectangleBorder(
+      //                               borderRadius: BorderRadius.circular(8)),
+      //                           content: Column(
+      //                             mainAxisSize: MainAxisSize.min,
+      //                             children: [
+      //                               Text(
+      //                                 'Choose Image',
+      //                                 style: TextStyle(
+      //                                   fontSize: 20,
+      //                                   fontWeight: FontWeight.bold,
+      //                                 ),
+      //                               ),
+      //                               Row(
+      //                                 mainAxisAlignment:
+      //                                     MainAxisAlignment.spaceEvenly,
+      //                                 children: [
+      //                                   GestureDetector(
+      //                                       onTap: () async {
+      //                                         await controller.pickImage(
+      //                                             ImageSource.camera);
+      //                                         Get.back();
+
+      //                                         Get.to(() => ScannerWidget());
+      //                                       },
+      //                                       child: _buildImageOption(
+      //                                           Icons.camera_alt, 'Camera')),
+      //                                   GestureDetector(
+      //                                       onTap: () async {
+      //                                         await controller.pickImage(
+      //                                             ImageSource.gallery);
+      //                                         Get.back();
+
+      //                                         Get.to(() => ScannerWidget());
+      //                                       },
+      //                                       child: _buildImageOption(
+      //                                           Icons.image, 'Gallery')),
+      //                                 ],
+      //                               ),
+      //                             ],
+      //                           ),
+      //                         );
+      //                       });
+      //                 },
+      //                 shape: RoundedRectangleBorder(
+      //                     borderRadius: BorderRadius.circular(16)),
+      //                 backgroundColor: Colors.teal,
+      //                 child: Icon(
+      //                   Icons.add_photo_alternate_outlined,
+      //                   color: Colors.white,
+      //                 ),
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       verticalSpace(16),
+      //       Obx(() => controller.responseStatus.value == ResponseStatus.success
+      //           ? Container(
+      //               height: 240,
+      //               width: 350,
+      //               decoration: BoxDecoration(
+      //                   color: Colors.white,
+      //                   borderRadius: BorderRadius.circular(16)),
+      //               child: Padding(
+      //                 padding: EdgeInsets.all(16),
+      //                 child: Text(
+      //                   controller.selectedFeature.value,
+      //                   style: TextStyle(fontSize: 16, color: Colors.black),
+      //                 ),
+      //               ),
+      //             )
+      //           : Container()),
+      //     ],
+      //   ),
+      // ),
     );
   }
 
@@ -178,7 +366,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
     return Column(
       children: [
         Icon(icon,
-            color: Colors.green, size: SizeConfig.blockSizeHorizontal * 10),
+            color: Colors.pink, size: SizeConfig.blockSizeHorizontal * 10),
         verticalSpace(SizeConfig.blockSizeVertical * 1),
         Text(label,
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),

@@ -98,7 +98,7 @@ class SplashScreen extends GetView<SplashController> {
                               child: LinearProgressIndicator(
                                   minHeight: 6,
                                   backgroundColor: Colors.grey.shade100,
-                                  color: Colors.teal),
+                                  color: Colors.pink),
                             ),
                           ))
                       // Container(

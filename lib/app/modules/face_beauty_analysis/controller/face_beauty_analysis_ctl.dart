@@ -73,7 +73,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
    "glass" : "<bool>",       // Glass  check if wearing glasses or not
   "face_quality" : "<number>",   // Face quality. get the overall quality of the face  in percentage
     "face_description":  "<string>"   // Write 30-50 words describing overall best features in the face and negative features that causes to deduct score and quality of face.
-}
+    "face_description_solution":  "<string>"   // check the face description you just created and tell the solution of problems in this face. how can we fix/improve this.
+    "face_description_solution_question":  "<string>"   // Analyze the face for negative features and suggest improvements in a well-structured format like bullet points. Keep the feedback concise, engaging, and focused only on the face and make me a question that i should asked from a face beauty expert.
 ''';
 
     final model = GenerativeModel(
@@ -97,6 +98,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
             "ethnicity",
             "glass",
             "face_description",
+            "face_description_solution",
+            "face_description_solution_question",
             "face_quality",
           ],
           properties: {
@@ -122,6 +125,12 @@ class FaceBeautyAnalysisCtl extends GetxController {
               SchemaType.integer,
             ),
             "face_description": Schema(
+              SchemaType.string,
+            ),
+            "face_description_solution": Schema(
+              SchemaType.string,
+            ),
+            "face_description_solution_question": Schema(
               SchemaType.string,
             ),
           },
@@ -151,6 +160,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
       responseStatus.value = ResponseStatus.failed;
       // showErrorDialog(Get.context!, e.toString());
       log("FaceBeauty Error: ${e.toString()}");
+      print('${beauty_analysis.value!.face_description_solution},');
+      print('${beauty_analysis.value!.face_description_solution_question},');
 
       // TODO
     }

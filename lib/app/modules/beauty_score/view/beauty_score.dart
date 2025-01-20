@@ -12,17 +12,21 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Beauty Score",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Icon(Icons.arrow_back_ios_new_rounded)),
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Beauty Score",
+      //     style: TextStyle(
+      //       fontSize: 24,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      //   leading: GestureDetector(
+      //       onTap: () {
+      //         Get.back();
+      //       },
+      //       child: Icon(Icons.arrow_back_ios_new_rounded)),
+      // ),
       body: Row(
         children: [
           Container(
@@ -30,11 +34,148 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
             width: SizeConfig.screenWidth,
             child: Column(
               children: [
+                // SafeArea(
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       GestureDetector(
+                //         onTap: () {
+                //           Get.back();
+                //         },
+                //         child: Container(
+                //           margin: EdgeInsets.only(
+                //             left: SizeConfig.blockSizeHorizontal * 4,
+                //           ),
+                //           height: SizeConfig.blockSizeVertical * 8,
+                //           width: SizeConfig.blockSizeHorizontal * 10,
+                //           decoration: BoxDecoration(
+                //             color: Color(0xFFE9A5B1),
+                //             shape: BoxShape.circle,
+                //             border: Border.all(color: Color(0xFFDD87D9)),
+                //           ),
+                //           child: Icon(
+                //             Icons.arrow_back_ios_new_rounded,
+                //             color: Colors.black,
+                //           ),
+                //         ),
+                //       ),
+                //       Container(
+                //         margin: EdgeInsets.only(
+                //             left: SizeConfig.blockSizeHorizontal * 10,
+                //             top: SizeConfig.blockSizeVertical * 1),
+                //         height: SizeConfig.blockSizeVertical * 5,
+                //         width: SizeConfig.blockSizeHorizontal * 55,
+                //         decoration: BoxDecoration(
+                //             color: Color(0xFFE9A5B1),
+                //             border: Border.all(color: Color(0xFFDD87D9)),
+                //             borderRadius: BorderRadius.circular(
+                //                 SizeConfig.blockSizeHorizontal * 6)),
+                //         child: Center(
+                //           child: Text(
+                //             "Beauty Score",
+                //             style: TextStyle(
+                //                 fontSize: SizeConfig.blockSizeHorizontal * 6,
+                //                 fontWeight: FontWeight.bold,
+                //                 color: Colors.black
+                //                 // color: Color(0xFFDD87D9)
+                //                 ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
                 Expanded(
-                  child: Stack(
+                  child: Column(
                     children: [
-                      left_beauty(context),
-                      right_beauty(context),
+                      Stack(
+                        children: [
+                          Container(
+                            height: SizeConfig.blockSizeVertical * 40,
+                            width: SizeConfig.screenWidth,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFFFFA9DE),
+                                    Color(0xFFFFBFB3),
+                                    Color(0xFFDD87D9)
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight),
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(
+                                    SizeConfig.blockSizeHorizontal * 2,
+                                  ),
+                                  bottomLeft: Radius.circular(
+                                    SizeConfig.blockSizeHorizontal * 2,
+                                  )),
+                              border: Border.all(color: Color(0xFFDD87D9)),
+                            ),
+                            child: SafeArea(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                        left:
+                                            SizeConfig.blockSizeHorizontal * 4,
+                                      ),
+                                      height: SizeConfig.blockSizeVertical * 8,
+                                      width:
+                                          SizeConfig.blockSizeHorizontal * 10,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFE9A5B1),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: Color(0xFFDD87D9)),
+                                      ),
+                                      child: Icon(
+                                        Icons.arrow_back_ios_new_rounded,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        left:
+                                            SizeConfig.blockSizeHorizontal * 10,
+                                        top: SizeConfig.blockSizeVertical * 1),
+                                    height: SizeConfig.blockSizeVertical * 5,
+                                    width: SizeConfig.blockSizeHorizontal * 55,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFE9A5B1),
+                                        border: Border.all(
+                                            color: Color(0xFFDD87D9)),
+                                        borderRadius: BorderRadius.circular(
+                                            SizeConfig.blockSizeHorizontal *
+                                                6)),
+                                    child: Center(
+                                      child: Text(
+                                        "Beauty Analysis",
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.blockSizeHorizontal *
+                                                    6,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black
+                                            // color: Color(0xFFDD87D9)
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          left_beauty(context),
+                          right_beauty(context),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -62,17 +203,27 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                   },
                   child: Container(
                     margin: EdgeInsets.only(
-                      bottom: SizeConfig.blockSizeVertical * 45,
+                      bottom: SizeConfig.blockSizeVertical * 52,
                     ),
-                    height: SizeConfig.blockSizeVertical * 7.5,
-                    width: SizeConfig.blockSizeHorizontal * 80,
+                    height: SizeConfig.blockSizeVertical * 6,
+                    width: SizeConfig.blockSizeHorizontal * 50,
                     decoration: BoxDecoration(
-                      // color: Colors.teal,
-                      color: Theme.of(Get.context!).primaryColor,
-                      borderRadius: BorderRadius.circular(
-                        SizeConfig.blockSizeHorizontal * 4,
-                      ),
-                    ),
+                        gradient: LinearGradient(
+                            colors: [Colors.pink.shade200, Colors.pink],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                        border: Border.all(color: Colors.pink, width: 2),
+                        borderRadius: BorderRadius.circular(
+                            SizeConfig.blockSizeHorizontal * 7)),
+                    // height: SizeConfig.blockSizeVertical * 7.5,
+                    // width: SizeConfig.blockSizeHorizontal * 80,
+                    // decoration: BoxDecoration(
+                    //   // color: Colors.teal,
+                    //   color: Theme.of(Get.context!).primaryColor,
+                    //   borderRadius: BorderRadius.circular(
+                    //     SizeConfig.blockSizeHorizontal * 4,
+                    //   ),
+                    // ),
                     child: Center(
                       child: Text(
                         "Compare",
@@ -96,7 +247,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
     return Obx(
       () => Positioned(
         left: SizeConfig.blockSizeHorizontal * 5,
-        top: SizeConfig.blockSizeVertical * 10,
+        top: SizeConfig.blockSizeVertical * 16,
         child: Transform.rotate(
           angle: -0.3,
           alignment: Alignment.topLeft,
@@ -160,6 +311,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                     ),
                   ],
                   color: Colors.white,
+                  border: Border.all(color: Color(0xFFDD87D9)),
                   borderRadius: BorderRadius.circular(
                       SizeConfig.blockSizeHorizontal * 13)),
               child: Stack(
@@ -213,7 +365,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
     return Obx(
       () => Positioned(
         left: SizeConfig.blockSizeHorizontal * 54,
-        top: SizeConfig.blockSizeVertical * 3.5,
+        top: SizeConfig.blockSizeVertical * 9,
         child: Transform.rotate(
           angle: 0.3,
           alignment: Alignment.topLeft,
@@ -276,6 +428,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                     ),
                   ],
                   color: Colors.white,
+                  border: Border.all(color: Color(0xFFDD87D9)),
                   borderRadius: BorderRadius.circular(
                       SizeConfig.blockSizeHorizontal * 13)),
               child: Stack(
@@ -329,7 +482,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
     return Column(
       children: [
         Icon(icon,
-            color: Colors.green, size: SizeConfig.blockSizeHorizontal * 10),
+            color: Colors.pink, size: SizeConfig.blockSizeHorizontal * 10),
         verticalSpace(SizeConfig.blockSizeVertical * 1),
         Text(label,
             style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),
