@@ -72,9 +72,18 @@ class FaceBeautyAnalysisCtl extends GetxController {
    "ethnicity" : "<String>",     // Ethnicity   
    "glass" : "<bool>",       // Glass  check if wearing glasses or not
   "face_quality" : "<number>",   // Face quality. get the overall quality of the face  in percentage
-    "face_description":  "<string>"   // Write 30-50 words describing overall best features in the face and negative features that causes to deduct score and quality of face.
-    "face_description_solution":  "<string>"   // check the face description you just created and tell the solution of problems in this face. how can we fix/improve this.
-    "face_description_solution_question":  "<string>"   // Analyze the face for negative features and suggest improvements in a well-structured format like bullet points. Keep the feedback concise, engaging, and focused only on the face and make me a question that i should asked from a face beauty expert.
+    "face_description": "<string>",   // Provide a detailed description (30-50 words) highlighting the face's best features such as symmetry, skin quality, eye shape, smile, etc. 
+  // Also, identify and mention any negative features that may reduce the overall facial score or quality, such as asymmetry, blemishes, disproportionate features, etc.
+
+  "face_description_solution": "<string>",   // Based on the negative features identified in the face_description, offer clear and actionable solutions. 
+  // Suggestions can include skincare routines, cosmetic treatments, lifestyle changes, or professional procedures to enhance or rectify the identified flaws.
+
+  "face_description_solution_question": "<string>"  // Analyze the face for negative features and suggest improvements in a well-structured format like bullet points. Keep the feedback concise, engaging, and focused only on the face and make me a question that i should asked from a face beauty expert. Provide 2-4 user suggestions.
+  // Example structure:
+  // • [User's Suggestion 1]
+  // • [User's Suggestion 2]
+  // 
+  // What additional treatments or adjustments would you recommend to further enhance these aspects?
 ''';
 
     final model = GenerativeModel(
