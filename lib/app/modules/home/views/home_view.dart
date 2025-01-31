@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/providers/applovin_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // AppLovinProvider.instance.showInterstitial((){});
           Get.toNamed(Routes.AICHATVIEW, arguments: [false, '', '']);
         },
         child: Icon(Icons.smart_toy_sharp),
@@ -123,6 +125,7 @@ class HomeView extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    AppLovinProvider.instance.showInterstitial((){});
                     Get.toNamed(Routes.FACEBEAUTYANALYSIS);
                   },
                   child: beauty_feauture(
@@ -137,6 +140,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    AppLovinProvider.instance.showInterstitial((){});
                     Get.toNamed(Routes.FACEREADING);
                   },
                   child: beauty_feauture(
@@ -151,6 +155,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    AppLovinProvider.instance.showInterstitial((){});
                     Get.toNamed(Routes.CELEBRITYLOOK);
                   },
                   child: beauty_feauture(
@@ -165,6 +170,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    AppLovinProvider.instance.showInterstitial((){});
                     Get.toNamed(Routes.BEAUTYSCORE);
                   },
                   child: beauty_feauture(

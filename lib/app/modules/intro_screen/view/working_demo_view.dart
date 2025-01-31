@@ -1,4 +1,6 @@
+import 'package:applovin_max/applovin_max.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/app_strings.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ class WorkingDemoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       // backgroundColor: Colors.pink.shade50,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,6 +93,7 @@ class WorkingDemoView extends StatelessWidget {
               ),
             ),
           ),
+          
         ],
       ),
     );

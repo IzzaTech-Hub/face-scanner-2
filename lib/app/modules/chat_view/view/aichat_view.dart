@@ -36,6 +36,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:face_scanner/app/modules/chat_view/controller/aichat_controller.dart';
+import 'package:face_scanner/app/providers/applovin_ads_provider.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
@@ -112,6 +113,7 @@ class AichatView extends GetView<AichatController> {
               children: [
                 GestureDetector(
                   onTap: () {
+                     AppLovinProvider.instance.showInterstitial((){});
                     Get.back();
                   },
                   child: Container(

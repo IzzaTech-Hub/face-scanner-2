@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class HomeViewCtl extends GetxController {
   @override
   void onInit() {
+
     // TODO: implement onInit
     super.onInit();
   }

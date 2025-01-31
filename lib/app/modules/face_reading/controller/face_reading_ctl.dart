@@ -37,16 +37,30 @@ class FaceReadingCtl extends GetxController
     )..repeat(reverse: true); // Repeat the scanning line animation
   }
 
-  Future<void> pickImage(ImageSource source) async {
-    final ImagePicker picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
+  // Future<void> pickImage(ImageSource source) async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: source);
 
-    if (pickedFile != null) {
-      selectedImage.value = File(pickedFile.path);
-      log("Picked Image");
-      startScanningImage(selectedImage.value!);
-    }
+  //   if (pickedFile != null) {
+  //     selectedImage.value = File(pickedFile.path);
+  //     log("Picked Image");
+      
+  //     startScanningImage(selectedImage.value!);
+
+  //   }
+  // }
+  Future<File?> pickImage(ImageSource source) async {
+  final ImagePicker picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: source);
+
+  if (pickedFile != null) {
+    selectedImage.value = File(pickedFile.path);
+    log("Picked Image");
+    startScanningImage(selectedImage.value!);
+    return selectedImage.value; // ✅ Return the selected image
   }
+  return null; // ✅ Return null if no image is picked
+}
 
   Future<void> startScanningImage(File imgFile) async {
     log("Started Scanning the image..");

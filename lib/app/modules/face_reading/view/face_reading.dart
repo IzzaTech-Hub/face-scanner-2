@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
@@ -37,19 +39,29 @@ class FaceReading extends GetView<FaceReadingCtl> {
                         children: [
                           GestureDetector(
                               onTap: () async {
-                                await controller.pickImage(ImageSource.camera);
-                                Get.back();
+                                // await controller.pickImage(ImageSource.camera);
+                                // Get.back();
 
-                                Get.to(() => ScannerWidget());
+                                // Get.to(() => ScannerWidget());
+                                 File? image = await controller.pickImage(ImageSource.camera);
+        Get.back();
+        if (image != null) {
+          Get.to(() => ScannerWidget());
+        }
                               },
                               child: _buildImageOption(
                                   Icons.camera_alt, 'Camera')),
                           GestureDetector(
                               onTap: () async {
-                                await controller.pickImage(ImageSource.gallery);
-                                Get.back();
+                                // await controller.pickImage(ImageSource.gallery);
+                                // Get.back();
 
-                                Get.to(() => ScannerWidget());
+                                // Get.to(() => ScannerWidget());
+                                 File? image = await controller.pickImage(ImageSource.gallery);
+        Get.back();
+        if (image != null) {
+          Get.to(() => ScannerWidget());
+        }
                               },
                               child: _buildImageOption(Icons.image, 'Gallery')),
                         ],
