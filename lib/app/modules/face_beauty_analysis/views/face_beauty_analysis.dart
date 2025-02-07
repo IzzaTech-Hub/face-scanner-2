@@ -9,6 +9,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -201,42 +202,116 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
               child: Column(
                 children: [
                   verticalSpace(SizeConfig.blockSizeVertical * 1),
-                  Obx(() => controller.selectedImage.value != null &&
-                          controller.responseStatus.value == ResponseStatus.idle
-                      ? GestureDetector(
-                          onTap: () {
+                  // [[[[[[Commented  By Jamal]]]]]] //
+                  
+                  // Obx(() => controller.selectedImage.value != null &&
+                  //         controller.responseStatus.value == ResponseStatus.idle
+                  //     ? GestureDetector(
+                  //         onTap: () {
                             
-                            controller.sendImageToGoogleAI(
-                                controller.selectedImage.value!);
-                          },
-                          child: Container(
-                            // margin: EdgeInsets.only(
-                            //     top: SizeConfig.blockSizeVertical * 34.5,
-                            //     left: SizeConfig.blockSizeHorizontal * 25),
-                            height: SizeConfig.blockSizeVertical * 6,
-                            width: SizeConfig.blockSizeHorizontal * 50,
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [Colors.pink.shade200, Colors.pink],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter),
-                                border:
-                                    Border.all(color: Colors.pink, width: 2),
-                                borderRadius: BorderRadius.circular(
-                                    SizeConfig.blockSizeHorizontal * 7)),
-                            child: Center(
-                              child: Text(
-                                "Analyze Beauty",
-                                style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 5,
-                                    // fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container()),
+                  //           controller.sendImageToGoogleAI(
+                  //               controller.selectedImage.value!);
+                  //         },
+                  //         child: Container(
+                  //           // margin: EdgeInsets.only(
+                  //           //     top: SizeConfig.blockSizeVertical * 34.5,
+                  //           //     left: SizeConfig.blockSizeHorizontal * 25),
+                  //           height: SizeConfig.blockSizeVertical * 6,
+                  //           width: SizeConfig.blockSizeHorizontal * 50,
+                  //           decoration: BoxDecoration(
+                  //               gradient: LinearGradient(
+                  //                   colors: [Colors.pink.shade200, Colors.pink],
+                  //                   begin: Alignment.topCenter,
+                  //                   end: Alignment.bottomCenter),
+                  //               border:
+                  //                   Border.all(color: Colors.pink, width: 2),
+                  //               borderRadius: BorderRadius.circular(
+                  //                   SizeConfig.blockSizeHorizontal * 7)),
+                  //           child: Center(
+                  //             child: Text(
+                  //               "Analyze Beauty",
+                  //               style: TextStyle(
+                  //                   fontSize:
+                  //                       SizeConfig.blockSizeHorizontal * 5,
+                  //                   // fontWeight: FontWeight.bold,
+                  //                   color: Colors.white),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       )
+                  //     : Container()),
+                  Obx(() => controller.selectedImage.value != null &&
+        controller.responseStatus.value == ResponseStatus.idle
+    ? GestureDetector(
+        onTap: () async {
+          // Show a dialog to inform the user that the internet connection is being checked
+          Get.defaultDialog(
+            title: "Checking Internet🚩",
+            buttonColor: Colors.pink,
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 10),
+                Text("Checking your connection..."),
+              ],
+            ),
+            barrierDismissible: false, // Prevent dismissing the dialog
+          );
+
+          // Create an instance of InternetConnectionChecker using the named constructor
+          final connectionChecker = InternetConnectionChecker.createInstance();
+          final isConnected = await connectionChecker.hasConnection;
+
+          // Close the checking dialog
+          Get.back();
+
+          if (isConnected) {
+            // Proceed with sending the image if connected
+            controller.sendImageToGoogleAI(controller.selectedImage.value!);
+          } else {
+            // Show an error dialog if there's no internet connection
+            Get.defaultDialog(
+              title: "No Internet 🚫",
+              buttonColor: Colors.pink,
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                
+                child: Text("Please check your internet connection and try again❗",
+                    style: TextStyle(color: Colors.red)),
+              ),
+              onConfirm: () {
+                Get.back(); // Close the dialog
+              },
+              confirmTextColor: Colors.white,
+            );
+          }
+        },
+        child: Container(
+          height: SizeConfig.blockSizeVertical * 6,
+          width: SizeConfig.blockSizeHorizontal * 50,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [Colors.pink.shade200, Colors.pink],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+            border: Border.all(color: Colors.pink, width: 2),
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 7),
+          ),
+          child: Center(
+            child: Text(
+              "Analyze Beauty",
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 5,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      )
+    : Container()),
+                
+                
                   Obx(() {
                     switch (controller.responseStatus.value) {
                       case ResponseStatus.success:

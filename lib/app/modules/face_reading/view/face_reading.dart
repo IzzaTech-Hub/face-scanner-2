@@ -9,6 +9,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class FaceReading extends GetView<FaceReadingCtl> {
   const FaceReading({super.key});
@@ -34,38 +35,145 @@ class FaceReading extends GetView<FaceReadingCtl> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                              onTap: () async {
-                                // await controller.pickImage(ImageSource.camera);
-                                // Get.back();
+                      // [[[[[[[[[[[[[[Commented By Jamal]]]]]]]]]]]]]] //
+        //               Row(
+        //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //                 children: [
+        //                   GestureDetector(
+        //                       onTap: () async {
+        //                         // await controller.pickImage(ImageSource.camera);
+        //                         // Get.back();
+        //                         // Get.to(() => ScannerWidget());
+        //                          File? image = await controller.pickImage(ImageSource.camera);
+        // Get.back();
+        // if (image != null) {
+        //   Get.to(() => ScannerWidget());
+        // }
+        //                       },
+        //                       child: _buildImageOption(
+        //                           Icons.camera_alt, 'Camera')),
+        //                   GestureDetector(
+        //                       onTap: () async {
+        //                         // await controller.pickImage(ImageSource.gallery);
+        //                         // Get.back();
 
-                                // Get.to(() => ScannerWidget());
-                                 File? image = await controller.pickImage(ImageSource.camera);
-        Get.back();
-        if (image != null) {
-          Get.to(() => ScannerWidget());
-        }
-                              },
-                              child: _buildImageOption(
-                                  Icons.camera_alt, 'Camera')),
-                          GestureDetector(
-                              onTap: () async {
-                                // await controller.pickImage(ImageSource.gallery);
-                                // Get.back();
+        //                         // Get.to(() => ScannerWidget());
+        //                          File? image = await controller.pickImage(ImageSource.gallery);
+        // Get.back();
+        // if (image != null) {
+        //   Get.to(() => ScannerWidget());
+        // }
+        //                       },
+        //                       child: _buildImageOption(Icons.image, 'Gallery')),
+        //                 ],
+        //               ),
+        Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    GestureDetector(
+      onTap: () async {
+        // Show a dialog to inform the user that the internet connection is being checked
+        Get.defaultDialog(
+          title: "Checking Internet🚩",
+           buttonColor: Colors.pink,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 10),
+              Text("Checking your connection..."),
+            ],
+          ),
+          barrierDismissible: false, // Prevent dismissing the dialog
+        );
 
-                                // Get.to(() => ScannerWidget());
-                                 File? image = await controller.pickImage(ImageSource.gallery);
+        // Create an instance of InternetConnectionChecker using the named constructor
+        final connectionChecker = InternetConnectionChecker.createInstance();
+        final isConnected = await connectionChecker.hasConnection;
+
+        // Close the checking dialog
         Get.back();
-        if (image != null) {
-          Get.to(() => ScannerWidget());
+
+        if (isConnected) {
+          // Proceed with picking image from camera
+          File? image = await controller.pickImage(ImageSource.camera);
+          Get.back();
+          if (image != null) {
+            Get.to(() => ScannerWidget());
+          }
+        } else {
+          // Show an error dialog if there's no internet connection
+          Get.defaultDialog(
+            title: "No Internet 🚫",
+             buttonColor: Colors.pink,
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Please check your internet connection and try again ❗",
+                  style: TextStyle(color: Colors.red)),
+            ),
+            onConfirm: () {
+              Get.back(); // Close the dialog
+            },
+            confirmTextColor: Colors.white,
+          );
         }
-                              },
-                              child: _buildImageOption(Icons.image, 'Gallery')),
-                        ],
-                      ),
+      },
+      child: _buildImageOption(Icons.camera_alt, 'Camera'),
+    ),
+    GestureDetector(
+      onTap: () async {
+        // Show a dialog to inform the user that the internet connection is being checked
+        Get.defaultDialog(
+          title: "Checking Internet🚩",
+           buttonColor: Colors.pink,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 10),
+              Text("Checking your connection..."),
+            ],
+          ),
+          barrierDismissible: false, // Prevent dismissing the dialog
+        );
+
+        // Create an instance of InternetConnectionChecker using the named constructor
+        final connectionChecker = InternetConnectionChecker.createInstance();
+        final isConnected = await connectionChecker.hasConnection;
+
+        // Close the checking dialog
+        Get.back();
+
+        if (isConnected) {
+          // Proceed with picking image from gallery
+          File? image = await controller.pickImage(ImageSource.gallery);
+          Get.back();
+          if (image != null) {
+            Get.to(() => ScannerWidget());
+          }
+        } else {
+          // Show an error dialog if there's no internet connection
+          Get.defaultDialog(
+            title: "No Internet 🚫",
+             buttonColor: Colors.pink,
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Please check your internet connection and try again.❗",
+                  style: TextStyle(color: Colors.red)),
+            ),
+            onConfirm: () {
+              Get.back(); // Close the dialog
+            },
+            confirmTextColor: Colors.white,
+          );
+        }
+      },
+      child: _buildImageOption(Icons.image, 'Gallery'),
+    ),
+  ],
+),
+
+                   
                     ],
                   ),
                 );

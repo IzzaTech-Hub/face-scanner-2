@@ -5,6 +5,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class BeautyScore extends GetView<BeautyScoreCtl> {
   const BeautyScore({super.key});
@@ -180,27 +181,149 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    // Check if images are picked before navigating
-                    if (controller.selectedImage1.value != null &&
-                        controller.selectedImage2.value != null) {
-                      await controller.compareImages();
+                  // [[[[[[[[[[[[[[[Commented By Jamal]]]]]]]]]]]]]]]//
+                  // onTap: () async {
+                  //   // Check if images are picked before navigating
+                  //   if (controller.selectedImage1.value != null &&
+                  //       controller.selectedImage2.value != null) {
+                  //     await controller.compareImages();
 
-                      Get.toNamed(
-                        Routes.BEAUTYSCORERESULT,
-                        // arguments can be passed here if needed
-                      );
-                    } else {
-                      // Show an error message
-                      Get.snackbar(
-                        "Error",
-                        "Please select both images before comparing.",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.redAccent,
-                        colorText: Colors.white,
-                      );
-                    }
-                  },
+                  //     Get.toNamed(
+                  //       Routes.BEAUTYSCORERESULT,
+                  //       // arguments can be passed here if needed
+                  //     );
+                  //   } else {
+                  //     // Show an error message
+                  //     Get.snackbar(
+                  //       "Error",
+                  //       "Please select both images before comparing.",
+                  //       snackPosition: SnackPosition.BOTTOM,
+                  //       backgroundColor: Colors.redAccent,
+                  //       colorText: Colors.white,
+                  //     );
+                  //   }
+                  // },
+//                   onTap: () async {
+//   // Show a dialog to inform the user that the internet connection is being checked
+//   Get.defaultDialog(
+//     title: "Checking Internet 🚩",
+//     buttonColor: Colors.pink,
+//     content: Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         CircularProgressIndicator(),
+//         SizedBox(width: 10),
+//         Text("Checking your connection..."),
+//       ],
+//     ),
+//     barrierDismissible: false, // Prevent dismissing the dialog
+//   );
+
+//   // Create an instance of InternetConnectionChecker using the named constructor
+//   final connectionChecker = InternetConnectionChecker.createInstance();
+//   final isConnected = await connectionChecker.hasConnection;
+
+//   // Close the checking dialog
+//   Get.back();
+
+//   if (isConnected) {
+//     // Check if images are picked before navigating
+//     if (controller.selectedImage1.value != null &&
+//         controller.selectedImage2.value != null) {
+//       await controller.compareImages();
+
+//       Get.toNamed(
+//         Routes.BEAUTYSCORERESULT,
+//         // arguments can be passed here if needed
+//       );
+//     } else {
+//       // Show an error message if images are not selected
+//       Get.snackbar(
+//         "Error",
+//         "Please select both images before comparing.",
+//         snackPosition: SnackPosition.BOTTOM,
+//         backgroundColor: Colors.redAccent,
+//         colorText: Colors.white,
+//       );
+//     }
+//   } else {
+//     // Show an error message if no internet connection
+//     Get.defaultDialog(
+//       title: "No Internet 🚫",
+//       buttonColor: Colors.pink,
+//       content: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Text("Please check your internet connection and try again ❗",
+//             style: TextStyle(color: Colors.red)),
+//       ),
+//       onConfirm: () {
+//         Get.back(); // Close the dialog
+//       },
+//       confirmTextColor: Colors.white,
+//     );
+//   }
+// },
+onTap: () async {
+  // Check if images are picked before checking the internet connection
+  if (controller.selectedImage1.value != null &&
+      controller.selectedImage2.value != null) {
+    
+    // Show a dialog to inform the user that the internet connection is being checked
+    Get.defaultDialog(
+      title: "Checking Internet 🚩",
+      buttonColor: Colors.pink,
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 10),
+          Text("Checking your connection..."),
+        ],
+      ),
+      barrierDismissible: false, // Prevent dismissing the dialog
+    );
+
+    // Create an instance of InternetConnectionChecker
+    final connectionChecker = InternetConnectionChecker.createInstance();
+    final isConnected = await connectionChecker.hasConnection;
+
+    // Close the checking dialog
+    Get.back();
+
+    if (isConnected) {
+      // Proceed to compare images
+      await controller.compareImages();
+      Get.toNamed(Routes.BEAUTYSCORERESULT);
+    } else {
+      // Show an error message if no internet connection
+      Get.defaultDialog(
+        title: "No Internet 🚫",
+        buttonColor: Colors.pink,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Please check your internet connection and try again ❗",
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+        onConfirm: () {
+          Get.back(); // Close the dialog
+        },
+        confirmTextColor: Colors.white,
+      );
+    }
+  } else {
+    // Show an error message if images are not selected
+    Get.snackbar(
+      "Error",
+      "Please select both images before comparing.",
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.redAccent,
+      colorText: Colors.white,
+    );
+  }
+},
+
                   child: Container(
                     margin: EdgeInsets.only(
                       bottom: SizeConfig.blockSizeVertical * 52,

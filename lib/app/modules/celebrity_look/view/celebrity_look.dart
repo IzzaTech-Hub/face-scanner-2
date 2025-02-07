@@ -7,6 +7,7 @@ import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CelebrityLook extends GetView<CelebrityLookCtl> {
@@ -110,22 +111,119 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
+                                    // [[[[[[[[[[[[[[[[Commented By Jamal]]]]]]]]]]]]]]]] //
+                                    // GestureDetector(
+                                    //     onTap: () async {
+                                    //       await controller
+                                    //           .pickImage(ImageSource.camera);
+                                    //       Get.back();
+                                    //     },
+                                    //     child: _buildImageOption(
+                                    //         Icons.camera_alt, 'Camera')),
+                                    // GestureDetector(
+                                    //     onTap: () async {
+                                    //       await controller
+                                    //           .pickImage(ImageSource.gallery);
+                                    //       Get.back();
+                                    //     },
+                                    //     child: _buildImageOption(
+                                    //         Icons.image, 'Gallery')),
                                     GestureDetector(
-                                        onTap: () async {
-                                          await controller
-                                              .pickImage(ImageSource.camera);
-                                          Get.back();
-                                        },
-                                        child: _buildImageOption(
-                                            Icons.camera_alt, 'Camera')),
-                                    GestureDetector(
-                                        onTap: () async {
-                                          await controller
-                                              .pickImage(ImageSource.gallery);
-                                          Get.back();
-                                        },
-                                        child: _buildImageOption(
-                                            Icons.image, 'Gallery')),
+  onTap: () async {
+    // Show a dialog to inform the user that the internet connection is being checked
+    Get.defaultDialog(
+      title: "Checking Internet 🚩",
+      buttonColor: Colors.pink,
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 10),
+          Text("Checking your connection..."),
+        ],
+      ),
+      barrierDismissible: false, // Prevent dismissing the dialog
+    );
+
+    // Create an instance of InternetConnectionChecker using the named constructor
+    final connectionChecker = InternetConnectionChecker.createInstance();
+    final isConnected = await connectionChecker.hasConnection;
+
+    // Close the checking dialog
+    Get.back();
+
+    if (isConnected) {
+      // Proceed with picking image from the camera
+      await controller.pickImage(ImageSource.camera);
+      Get.back(); // Close the previous screen or dialog after image is picked
+    } else {
+      // Show an error dialog if there's no internet connection
+      Get.defaultDialog(
+        title: "No Internet 🚫",
+        buttonColor: Colors.pink,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Please check your internet connection and try again ❗",
+              style: TextStyle(color: Colors.red)),
+        ),
+        onConfirm: () {
+          Get.back(); // Close the dialog
+        },
+        confirmTextColor: Colors.white,
+      );
+    }
+  },
+  child: _buildImageOption(Icons.camera_alt, 'Camera'),
+),
+
+GestureDetector(
+  onTap: () async {
+    // Show a dialog to inform the user that the internet connection is being checked
+    Get.defaultDialog(
+      title: "Checking Internet 🚩",
+      buttonColor: Colors.pink,
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 10),
+          Text("Checking your connection..."),
+        ],
+      ),
+      barrierDismissible: false, // Prevent dismissing the dialog
+    );
+
+    // Create an instance of InternetConnectionChecker using the named constructor
+    final connectionChecker = InternetConnectionChecker.createInstance();
+    final isConnected = await connectionChecker.hasConnection;
+
+    // Close the checking dialog
+    Get.back();
+
+    if (isConnected) {
+      // Proceed with picking image from the gallery
+      await controller.pickImage(ImageSource.gallery);
+      Get.back(); // Close the previous screen or dialog after image is picked
+    } else {
+      // Show an error dialog if there's no internet connection
+      Get.defaultDialog(
+        title: "No Internet 🚫",
+        buttonColor: Colors.pink,
+        content: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Please check your internet connection and try again ❗",
+              style: TextStyle(color: Colors.red)),
+        ),
+        onConfirm: () {
+          Get.back(); // Close the dialog
+        },
+        confirmTextColor: Colors.white,
+      );
+    }
+  },
+  child: _buildImageOption(Icons.image, 'Gallery'),
+),
+
                                     // GestureDetector(
                                     //     onTap: () {},
                                     //     child: _buildImageOption(
@@ -249,7 +347,9 @@ class CelebrityLook extends GetView<CelebrityLookCtl> {
                                         style: TextStyle(
                                             fontSize:
                                                 SizeConfig.blockSizeHorizontal *
-                                                    3.3),
+                                                    3
+                                                    ),
+                                                    textAlign: TextAlign.center,
                                       ),
                                     ),
                                   );
