@@ -7,7 +7,7 @@
 
 
     <application
-        android:label="AI Beauty Scanner"
+        android:label="Face Beauty Analyzer"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
