@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:face_scanner/app/data/response_status.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class FaceReadingCtl extends GetxController
   var selectedImage = Rx<File?>(null);
   RxInt selectedIndex = 0.obs;
   Rx<bool> isScanning = false.obs;
+  RxInt adCount = 0.obs ;
   Rx<ResponseStatus> responseStatus = ResponseStatus.idle.obs;
 
   late AnimationController animationController;

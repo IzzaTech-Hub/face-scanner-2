@@ -1,16 +1,18 @@
-import 'package:face_scanner/app/providers/applovin_ads_provider.dart';
+import 'package:face_scanner/app/modules/home/controller/home_view_ctl.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeViewCtl> {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -125,7 +127,7 @@ class HomeView extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial((){});
+                    AdMobAdsProvider.instance.showInterstitialAd((){});
                     Get.toNamed(Routes.FACEBEAUTYANALYSIS);
                   },
                   child: beauty_feauture(
@@ -140,7 +142,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial((){});
+                    AdMobAdsProvider.instance.showInterstitialAd((){});
                     Get.toNamed(Routes.FACEREADING);
                   },
                   child: beauty_feauture(
@@ -155,7 +157,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial((){});
+                   AdMobAdsProvider.instance.showInterstitialAd((){});
                     Get.toNamed(Routes.CELEBRITYLOOK);
                   },
                   child: beauty_feauture(
@@ -170,7 +172,7 @@ class HomeView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    AppLovinProvider.instance.showInterstitial((){});
+                    AdMobAdsProvider.instance.showInterstitialAd((){});
                     Get.toNamed(Routes.BEAUTYSCORE);
                   },
                   child: beauty_feauture(
@@ -484,6 +486,7 @@ class HomeView extends StatelessWidget {
             baseColor: Colors.white, // Shimmer base color indigo
             highlightColor: shimmerColor,
             direction: ShimmerDirection.btt,
+            
             // Shimmer highlight color lighter indigo
             child: Container(
               // height: SizeConfig.blockSizeVertical * 15,

@@ -3,7 +3,7 @@ import 'package:face_scanner/app/data/beauty_analysis.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_beauty_analysis_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
-import 'package:face_scanner/app/providers/applovin_ads_provider.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +109,7 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            AdMobAdsProvider.instance.showInterstitialAd((){});
                             Get.back();
                           },
                           child: Container(

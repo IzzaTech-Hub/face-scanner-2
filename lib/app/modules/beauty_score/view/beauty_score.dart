@@ -1,17 +1,22 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/app_strings.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class BeautyScore extends GetView<BeautyScoreCtl> {
   const BeautyScore({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       // appBar: AppBar(
       //   title: Text(
@@ -119,6 +124,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
+                                      AdMobAdsProvider.instance.showInterstitialAd((){});
                                       Get.back();
                                     },
                                     child: Container(
@@ -357,10 +363,15 @@ onTap: () async {
                       ),
                     ),
                   ),
-                )
+                ),
+
+                
+              
               ],
             ),
           ),
+         
+              
         ],
       ),
     );

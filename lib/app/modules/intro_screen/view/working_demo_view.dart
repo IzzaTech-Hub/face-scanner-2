@@ -1,7 +1,4 @@
-import 'package:applovin_max/applovin_max.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
-import 'package:face_scanner/app/utills/app_strings.dart';
-import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +6,11 @@ import 'package:get/get.dart';
 class WorkingDemoView extends StatelessWidget {
   const WorkingDemoView({super.key});
 
+ 
+
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       
       // backgroundColor: Colors.pink.shade50,
@@ -65,6 +65,7 @@ class WorkingDemoView extends StatelessWidget {
           Center(
             child: GestureDetector(
               onTap: () {
+            
                 Get.offNamed(Routes.HOMEVIEW);
               },
               child: Container(
@@ -93,6 +94,7 @@ class WorkingDemoView extends StatelessWidget {
               ),
             ),
           ),
+     
           
         ],
       ),

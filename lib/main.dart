@@ -1,4 +1,4 @@
-import 'package:face_scanner/app/providers/applovin_ads_provider.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/providers/custome_them.dart';
 import 'package:face_scanner/firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -21,8 +21,9 @@ Future<void> main() async {
     // DeviceOrientation.landscapeRight,
   ]);
 
-      // Applovin Intialize.
-  AppLovinProvider.instance.init();
+  //     Applovin Intialize.
+  // AppLovinProvider.instance.init();
+  AdMobAdsProvider.instance.initialize();
 
 
   // RemoteConfigService().initialize();

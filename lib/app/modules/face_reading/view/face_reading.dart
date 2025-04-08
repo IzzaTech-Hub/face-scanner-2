@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -244,6 +245,7 @@ class FaceReading extends GetView<FaceReadingCtl> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          AdMobAdsProvider.instance.showInterstitialAd((){});
                           Get.back();
                         },
                         child: Container(
