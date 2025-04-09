@@ -17,7 +17,7 @@ class FaceReadingCtl extends GetxController
   var selectedImage = Rx<File?>(null);
   RxInt selectedIndex = 0.obs;
   Rx<bool> isScanning = false.obs;
-  RxInt adCount = 0.obs ;
+  RxInt adCount = 0.obs;
   Rx<ResponseStatus> responseStatus = ResponseStatus.idle.obs;
 
   late AnimationController animationController;
@@ -46,23 +46,23 @@ class FaceReadingCtl extends GetxController
   //   if (pickedFile != null) {
   //     selectedImage.value = File(pickedFile.path);
   //     log("Picked Image");
-      
+
   //     startScanningImage(selectedImage.value!);
 
   //   }
   // }
   Future<File?> pickImage(ImageSource source) async {
-  final ImagePicker picker = ImagePicker();
-  final pickedFile = await picker.pickImage(source: source);
+    final ImagePicker picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
 
-  if (pickedFile != null) {
-    selectedImage.value = File(pickedFile.path);
-    log("Picked Image");
-    startScanningImage(selectedImage.value!);
-    return selectedImage.value; // ✅ Return the selected image
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+      log("Picked Image");
+      startScanningImage(selectedImage.value!);
+      return selectedImage.value; // ✅ Return the selected image
+    }
+    return null; // ✅ Return null if no image is picked
   }
-  return null; // ✅ Return null if no image is picked
-}
 
   Future<void> startScanningImage(File imgFile) async {
     log("Started Scanning the image..");
@@ -77,8 +77,8 @@ class FaceReadingCtl extends GetxController
    
 ''';
     final model = GenerativeModel(
-      model: 'gemini-1.5-flash',
-      // model: 'gemini-1.5-flash',
+      model: RCVariables.geminiModel,
+      // model: RCVariables.geminiModel,
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.5,

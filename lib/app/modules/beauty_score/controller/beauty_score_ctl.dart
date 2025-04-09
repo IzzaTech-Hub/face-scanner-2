@@ -102,7 +102,7 @@ class BeautyScoreCtl extends GetxController {
     log("GK: ${RCVariables.GeminiAPIKey}");
     final model = GenerativeModel(
       // model: 'gemini-1.5-pro',
-      model: 'gemini-1.5-flash',
+      model: RCVariables.geminiModel,
       apiKey: RCVariables.GeminiAPIKey,
       generationConfig: GenerationConfig(
         temperature: 0.5,
