@@ -1,3 +1,4 @@
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class WorkingDemoView extends StatelessWidget {
           Center(
             child: GestureDetector(
               onTap: () {
-            
+                AdMobAdsProvider.instance.showInterstitialAd((){});
                 Get.offNamed(Routes.HOMEVIEW);
               },
               child: Container(

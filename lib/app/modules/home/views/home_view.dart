@@ -4,6 +4,8 @@ import 'package:face_scanner/app/routes/app_pages.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeView extends GetView<HomeViewCtl> {
@@ -187,7 +189,67 @@ class HomeView extends GetView<HomeViewCtl> {
                 ),
               ],
             ),
-          )
+          ),
+          
+           Container(
+                          height: SizeConfig.blockSizeVertical * 10,
+                        
+                          // margin: EdgeInsets.only(
+                          //     top: SizeConfig.blockSizeVertical * 20),
+                          width: double.infinity,
+                          child: GestureDetector(
+                            onTap: () async {
+                              final InAppReview inAppReview =
+                                  InAppReview.instance;
+
+                              inAppReview.openStoreListing();
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      bottom:
+                                          SizeConfig.blockSizeVertical * 0.5),
+                                  child: Text(
+                                    "Rate Us",
+                                    style: GoogleFonts.alata(
+                                        color: Colors.black,
+                                        fontSize:
+                                            SizeConfig.blockSizeHorizontal *
+                                                3.5,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
         ],
       ),
       // appBar: AppBar(
@@ -537,7 +599,9 @@ class HomeView extends GetView<HomeViewCtl> {
                     color: Colors.grey.shade600,
                   ),
                 ),
-              )
+              ),
+                
+         
             ],
           ),
         ],

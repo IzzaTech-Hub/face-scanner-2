@@ -1,0 +1,2 @@
+E:/face-scanner-2/android/app/.cxx/Debug/4t235cm5/x86_64/CMakeFiles/edit_cache.dir
+E:/face-scanner-2/android/app/.cxx/Debug/4t235cm5/x86_64/CMakeFiles/rebuild_cache.dir
