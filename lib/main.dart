@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -24,6 +25,7 @@ Future<void> main() async {
   //     Applovin Intialize.
   // AppLovinProvider.instance.init();
   AdMobAdsProvider.instance.initialize();
+  // await MobileAds.instance.initialize();
 
 
   // RemoteConfigService().initialize();

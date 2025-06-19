@@ -1,41 +1,26 @@
-import 'package:face_scanner/app/routes/app_pages.dart';
-import 'package:face_scanner/app/services/remoteconfig_services.dart';
 import 'package:get/get.dart';
+import 'package:face_scanner/app/providers/admob_ads_provider.dart';
+import 'package:face_scanner/app/routes/app_pages.dart';
 
 class SplashController extends GetxController {
-  var tabIndex = 0.obs;
-  Rx<int> percent = 0.obs;
-  Rx<bool> isLoaded = false.obs;
+  RxInt percent = 0.obs;
+  RxBool isLoaded = false.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await RemoteConfigService().initialize();
-
-    // AppLovinProvider.instance.init();
-
-    // Get.offNamed(Routes.HOMEVIEW);
-    Get.offNamed(Routes.WORKINGDEMOVIEW);
-
-    // prefs.then((SharedPreferences pref) {
-    //   isFirstTime = pref.getBool('first_time') ?? true;
-
-    //   print("Is First Time from Init: $isFirstTime");
-    // });
+    // AdMobAdsProvider.instance.loadInterstitialAd();
+    _startTimerAndAdSequence();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void _startTimerAndAdSequence() async {
+    for (int i = 0; i <= 100; i++) {
+      await Future.delayed(const Duration(milliseconds: 30));
+      percent.value = i;
+    }
+
+    AdMobAdsProvider.instance.showInterstitialAd(() {
+      Get.offNamed(Routes.WORKINGDEMOVIEW);
+    });
   }
-
-  @override
-  void onClose() {}
-
-  // void setFirstTime(bool bool) {
-  //   prefs.then((SharedPreferences pref) {
-  //     pref.setBool('first_time', bool);
-  //     print("Is First Time: $isFirstTime");
-  //   });
-  // }
 }
