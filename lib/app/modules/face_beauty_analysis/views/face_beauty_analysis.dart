@@ -5,19 +5,55 @@ import 'package:face_scanner/app/modules/face_beauty_analysis/controller/face_be
 import 'package:face_scanner/app/modules/home/views/helping_widgets/circular_graph.dart';
 import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/CM.dart';
+import 'package:face_scanner/app/utills/app_strings.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
-  const FaceBeautyAnalysis({super.key});
+   FaceBeautyAnalysis({super.key});
+
+  // // // Native Ad Implementation start // // //
+
+  //? commented by jamal start
+  NativeAd? nativeAd;
+  RxBool nativeAdIsLoaded = false.obs;
+
+  initNative() {
+    nativeAd = NativeAd(
+      adUnitId: AppStrings.ADMOB_NATIVE,
+      request: AdRequest(),
+      // factoryId: ,
+      nativeTemplateStyle:
+          NativeTemplateStyle(templateType: TemplateType.medium),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded.');
+
+          nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+      ),
+    )..load();
+  }
+  //? commented by jamal end
+
+  /// Native Ad Implemntation End ///
 
   @override
   Widget build(BuildContext context) {
+    initNative();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -310,7 +346,24 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
           ),
         ),
       )
-    : Container()),
+    : 
+    
+    // Obx(
+    //               () =>  
+    //               AdMobAdsProvider.instance.isAdEnable.value
+    //                       ? Center(
+    //                           child: Container(
+    //                               margin: EdgeInsets.symmetric(
+    //                                   horizontal:
+    //                                       SizeConfig.blockSizeHorizontal * 5),
+    //                               child: NativeAdMethed(
+    //                                   nativeAd, nativeAdIsLoaded)),
+    //                         )
+    //                       : Container(),
+    //             )
+    Container()
+    
+    ),
                 
                 
                   Obx(() {
@@ -706,7 +759,25 @@ class FaceBeautyAnalysis extends GetView<FaceBeautyAnalysisCtl> {
                           ),
                         );
                       case ResponseStatus.idle:
-                        return Container(); // Add idle state handling if needed
+                        return  
+                        Obx(
+                  () =>  
+                  AdMobAdsProvider.instance.isAdEnable.value
+                          ? Center(
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.blockSizeHorizontal * 5),
+                                  child: NativeAdMethed(
+                                      nativeAd, nativeAdIsLoaded)),
+                            )
+                          : Container(),
+                ) ;
+                        // Container(
+                        //   height: 100,
+                        //   width: 200,
+                        //   color: Colors.red,
+                        // ); // Add idle state handling if needed
                       default:
                         return Container();
                     }

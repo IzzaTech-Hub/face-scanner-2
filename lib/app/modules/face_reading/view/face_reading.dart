@@ -5,18 +5,54 @@ import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/face_reading/controller/face_reading_ctl.dart';
 import 'package:face_scanner/app/modules/home/views/scanner_widget.dart';
 import 'package:face_scanner/app/providers/admob_ads_provider.dart';
+import 'package:face_scanner/app/utills/CM.dart';
+import 'package:face_scanner/app/utills/app_strings.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class FaceReading extends GetView<FaceReadingCtl> {
-  const FaceReading({super.key});
+   FaceReading({super.key});
+
+  // // // Native Ad Implementation start // // //
+
+  //? commented by jamal start
+  NativeAd? nativeAd;
+  RxBool nativeAdIsLoaded = false.obs;
+
+  initNative() {
+    nativeAd = NativeAd(
+      adUnitId: AppStrings.ADMOB_NATIVE,
+      request: AdRequest(),
+      // factoryId: ,
+      nativeTemplateStyle:
+          NativeTemplateStyle(templateType: TemplateType.medium),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded.');
+
+          nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+      ),
+    )..load();
+  }
+  //? commented by jamal end
+
+  /// Native Ad Implemntation End ///
 
   @override
   Widget build(BuildContext context) {
+    initNative();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -350,7 +386,24 @@ class FaceReading extends GetView<FaceReadingCtl> {
                     ),
                   ),
                 )
-              : Container()),
+              : 
+              Obx(
+                  () =>  
+                  AdMobAdsProvider.instance.isAdEnable.value
+                          ? Center(
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.blockSizeHorizontal * 5),
+                                  child: NativeAdMethed(
+                                      nativeAd, nativeAdIsLoaded)),
+                            )
+                          : Container(),
+                )
+              //  Container(
+
+              // )
+              ),
         ],
       ),
       // SingleChildScrollView(

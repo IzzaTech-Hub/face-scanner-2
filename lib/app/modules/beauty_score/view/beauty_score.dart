@@ -1,6 +1,7 @@
 import 'package:face_scanner/app/modules/beauty_score/controller/beauty_score_ctl.dart';
 import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/routes/app_pages.dart';
+import 'package:face_scanner/app/utills/CM.dart';
 import 'package:face_scanner/app/utills/app_strings.dart';
 import 'package:face_scanner/app/utills/images.dart';
 import 'package:face_scanner/app/utills/size_config.dart';
@@ -11,12 +12,44 @@ import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class BeautyScore extends GetView<BeautyScoreCtl> {
-  const BeautyScore({super.key});
+   BeautyScore({super.key});
+
+    // // // Native Ad Implementation start // // //
+
+  //? commented by jamal start
+  NativeAd? nativeAd;
+  RxBool nativeAdIsLoaded = false.obs;
+
+  initNative() {
+    nativeAd = NativeAd(
+      adUnitId: AppStrings.ADMOB_NATIVE,
+      request: AdRequest(),
+      // factoryId: ,
+      nativeTemplateStyle:
+          NativeTemplateStyle(templateType: TemplateType.medium),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded.');
+
+          nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+      ),
+    )..load();
+  }
+  //? commented by jamal end
+
+  /// Native Ad Implemntation End ///
 
   
   @override
   Widget build(BuildContext context) {
-
+initNative();
     return Scaffold(
       // appBar: AppBar(
       //   title: Text(
@@ -33,7 +66,7 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
       //       },
       //       child: Icon(Icons.arrow_back_ios_new_rounded)),
       // ),
-      body: Row(
+      body: Column(
         children: [
           Container(
             height: SizeConfig.screenHeight,
@@ -183,6 +216,20 @@ class BeautyScore extends GetView<BeautyScoreCtl> {
                           right_beauty(context),
                         ],
                       ),
+                      verticalSpace(SizeConfig.blockSizeVertical * 2),
+                      Obx(
+                  () =>  
+                  AdMobAdsProvider.instance.isAdEnable.value
+                          ? Center(
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.blockSizeHorizontal * 5),
+                                  child: NativeAdMethed(
+                                      nativeAd, nativeAdIsLoaded)),
+                            )
+                          : Container(),
+                )
                     ],
                   ),
                 ),
@@ -332,7 +379,7 @@ onTap: () async {
 
                   child: Container(
                     margin: EdgeInsets.only(
-                      bottom: SizeConfig.blockSizeVertical * 52,
+                      bottom: SizeConfig.blockSizeVertical *10,
                     ),
                     height: SizeConfig.blockSizeVertical * 6,
                     width: SizeConfig.blockSizeHorizontal * 50,
@@ -364,6 +411,8 @@ onTap: () async {
                     ),
                   ),
                 ),
+
+             
 
                 
               
