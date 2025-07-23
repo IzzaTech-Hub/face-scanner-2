@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/modules/home/views/helping_widgets/dualscanning_widget.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
@@ -103,7 +104,8 @@ class BeautyScoreCtl extends GetxController {
     final model = GenerativeModel(
       // model: 'gemini-1.5-pro',
       model: RCVariables.geminiModel,
-      apiKey: RCVariables.GeminiAPIKey,
+      // apiKey: RCVariables.GeminiAPIKey,
+      apiKey: ApiKeyPool.getKey(),
       generationConfig: GenerationConfig(
         temperature: 0.5,
         topK: 40,

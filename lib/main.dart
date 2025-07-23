@@ -1,3 +1,4 @@
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/providers/custome_them.dart';
 import 'package:face_scanner/app/services/remoteconfig_services.dart';
@@ -17,6 +18,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+    await ApiKeyPool.init('Face Beauty Analyzer');
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

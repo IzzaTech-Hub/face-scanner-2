@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/providers/admob_ads_provider.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
@@ -79,7 +80,8 @@ class FaceReadingCtl extends GetxController
     final model = GenerativeModel(
       model: RCVariables.geminiModel,
       // model: RCVariables.geminiModel,
-      apiKey: RCVariables.GeminiAPIKey,
+      // apiKey: RCVariables.GeminiAPIKey,
+      apiKey: ApiKeyPool.getKey(),
       generationConfig: GenerationConfig(
         temperature: 0.5,
         topK: 40,

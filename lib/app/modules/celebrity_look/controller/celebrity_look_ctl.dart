@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/data/celebrity_match.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/services/api_service.dart';
@@ -82,7 +83,8 @@ Respond only in JSON format, following the structure below:
     final model = GenerativeModel(
       // model: 'gemini-1.5-pro',
       model: RCVariables.geminiModel,
-      apiKey: RCVariables.GeminiAPIKey,
+      // apiKey: RCVariables.GeminiAPIKey,
+      apiKey: ApiKeyPool.getKey(),
       generationConfig: GenerationConfig(
         temperature: 0.8,
         topK: 40,

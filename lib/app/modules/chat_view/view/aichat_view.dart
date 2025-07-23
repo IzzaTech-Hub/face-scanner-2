@@ -35,6 +35,7 @@
 
 import 'dart:io';
 import 'dart:math';
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/modules/chat_view/controller/aichat_controller.dart';
 import 'package:face_scanner/app/utills/colors.dart';
 import 'package:face_scanner/app/utills/rc_variables.dart';
@@ -46,7 +47,8 @@ import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 
-final String _apiKey = RCVariables.GeminiAPIKey;
+// final String _apiKey = RCVariables.GeminiAPIKey;
+final String _apiKey = ApiKeyPool.getKey();
 // const String _apiKey = 'AIzaSyBfsg3ZEwnl0CRPYGBh1r_XhFu9tChvL5o';
 
 // void main() {
@@ -160,7 +162,8 @@ class AichatView extends GetView<AichatController> {
           ),
         ),
       ),
-      body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
+      // body: ChatWidget(apiKey: RCVariables.GeminiAPIKey),
+      body: ChatWidget(apiKey: ApiKeyPool.getKey()),
     );
   }
 }

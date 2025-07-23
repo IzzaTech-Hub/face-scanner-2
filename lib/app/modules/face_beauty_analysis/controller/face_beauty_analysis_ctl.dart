@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:api_key_pool/api_key_pool.dart';
 import 'package:face_scanner/app/data/beauty_analysis.dart';
 import 'package:face_scanner/app/data/response_status.dart';
 import 'package:face_scanner/app/services/api_service.dart';
@@ -89,7 +90,8 @@ class FaceBeautyAnalysisCtl extends GetxController {
     final model = GenerativeModel(
       // model: RCVariables.geminiModel,
       model: RCVariables.geminiModel,
-      apiKey: RCVariables.GeminiAPIKey,
+      // apiKey: RCVariables.GeminiAPIKey,
+      apiKey: ApiKeyPool.getKey(),
       generationConfig: GenerationConfig(
         temperature: 0.5,
         topK: 40,
