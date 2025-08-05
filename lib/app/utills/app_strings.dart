@@ -30,7 +30,7 @@ class AppStrings {
 
   // static String ADMOB_BANNER = "ca-app-pub-3940256099942544/6300978111";
   // static String ADMOB_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
-  // static String ADMOB_APP_OPEN = "ca-app-pub-3940256099942544/9257395921";
+  // // static String ADMOB_APP_OPEN = "ca-app-pub-3940256099942544/9257395921";
   // static String ADMOB_NATIVE = "ca-app-pub-3940256099942544/2247696110";
   // static String ADMOB_REWARDED = "ca-app-pub-3940256099942544/5224354917";
 }
